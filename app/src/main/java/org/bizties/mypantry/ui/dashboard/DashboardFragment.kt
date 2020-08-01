@@ -18,11 +18,7 @@ class DashboardFragment : Fragment() {
     private lateinit var viewModel: DashboardViewModel
     private lateinit var listAdapter: PantryListAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProvider(this, OpenedItemsViewModelFactory()).get(DashboardViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)

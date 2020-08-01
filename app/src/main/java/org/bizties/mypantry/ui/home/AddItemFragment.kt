@@ -19,12 +19,7 @@ class AddItemFragment : DialogFragment() {
         setStyle(STYLE_NORMAL, R.style.AppTheme)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         viewModel = ViewModelProvider(
             this,
             AddItemViewModelFactory()
