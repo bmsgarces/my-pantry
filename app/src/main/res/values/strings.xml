@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MyPantry</string>
+    <string name="title_home">Pantry</string>
+    <string name="title_dashboard">Opened</string>
+    <string name="title_notifications">Trolley</string>
+</resources>
