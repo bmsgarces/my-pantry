@@ -5,5 +5,12 @@ enum class Category(val description: String) {
     BEANS_AND_LENTILS("Beans and Lentils"),
     CANNED_FOOD("Canned Food"),
     DRINKS("Drinks"),
-    DAIRY("Dairy")
+    DAIRY("Dairy");
+
+    companion object {
+
+        fun fromDescription(description: String): Category? {
+            return values().find { it.description.equals(description, ignoreCase = true) }
+        }
+    }
 }
