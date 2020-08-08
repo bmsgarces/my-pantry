@@ -13,6 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.bizties.mypantry.R
 import org.bizties.mypantry.repository.Category
+import org.bizties.mypantry.shared.allCaps
 import org.bizties.mypantry.shared.getDrawableCompat
 import java.util.Locale
 
@@ -66,9 +67,5 @@ class SelectCategoryBottomSheet : BottomSheetDialogFragment(), SelectCategoryLis
 
             (view.layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = behavior
         }
-    }
-
-    private fun String.allCaps(): String {
-        return this.toUpperCase(Locale.getDefault())
     }
 }

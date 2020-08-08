@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentResultListener
 import androidx.lifecycle.ViewModelProvider
 import org.bizties.mypantry.R
+import org.bizties.mypantry.repository.Category
 import org.bizties.mypantry.ui.home.SelectCategoryBottomSheet
 
 class AddItemFragment : DialogFragment() {
@@ -39,10 +40,11 @@ class AddItemFragment : DialogFragment() {
 
         val button: Button = root.findViewById(R.id.add_item_button)
         button.setOnClickListener {
+            val category = Category.fromDescription(categoryEditText.textToString())
             viewModel.addItem(
                 name = nameEditText.textToString(),
                 quantity = quantityEditText.textToString().toFloat(),
-                category = categoryEditText.textToString(),
+                category = category!!.description,
                 expiryDate = expiryDateEditText.textToString().nullIfEmpty()
             )
             dismiss()

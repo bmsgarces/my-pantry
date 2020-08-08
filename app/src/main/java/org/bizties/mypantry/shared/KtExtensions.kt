@@ -4,9 +4,14 @@ import android.content.Context
 import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import java.util.Locale
 
 fun Float.printableQuantity(): String {
     return if (this % 1 == 0f) this.toInt().toString() else this.toString()
+}
+
+fun String.allCaps(): String {
+    return this.toUpperCase(Locale.getDefault())
 }
 
 fun <T> List<T>.nullIfEmpty(): List<T>? = if (this.isEmpty()) null else this
