@@ -8,6 +8,6 @@ import org.bizties.mypantry.MyPantryApplication
 class HomeViewModelFactory : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return HomeViewModel(MyPantryApplication.instance.getPantryItemDao()) as T
+        return HomeViewModel(MyPantryApplication.instance.getStockItemRepository()) as T
     }
 }

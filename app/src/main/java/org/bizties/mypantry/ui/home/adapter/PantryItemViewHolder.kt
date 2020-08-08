@@ -4,25 +4,23 @@ import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import org.bizties.mypantry.R
-import org.bizties.mypantry.repository.PantryItem
+import org.bizties.mypantry.repository.StockItem
+import org.bizties.mypantry.shared.printableQuantity
 
 class PantryItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(pantryItem : PantryItem) {
+    fun bind(stockItem : StockItem) {
         val nameTextView: TextView = itemView.findViewById(R.id.name)
         val quantityTextView: TextView = itemView.findViewById(R.id.quantity)
         val categoryTextView: TextView = itemView.findViewById(R.id.category)
         val expiryDateTextView: TextView = itemView.findViewById(R.id.expiry_date)
 
-        with(pantryItem) {
-            nameTextView.text = name
-            quantityTextView.text = quantity.printableQuantity()
-            categoryTextView.text = category.description
-            expiryDateTextView.text = expiryDate
-        }
-    }
+        val (item, quantities) = stockItem
+        val quantity = quantities.first()
 
-    private fun Float.printableQuantity(): String {
-        return if (this % 1 == 0f) this.toInt().toString() else this.toString()
+        nameTextView.text = item.name
+        quantityTextView.text = quantity.amount.printableQuantity()
+        categoryTextView.text = item.category.description
+        expiryDateTextView.text = item.expiryDate
     }
 }

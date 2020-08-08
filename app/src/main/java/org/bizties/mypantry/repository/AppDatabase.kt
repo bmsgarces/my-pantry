@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
-@Database(entities = [PantryItem::class], version = 1, exportSchema = false)
+@Database(entities = [PantryItem::class, Quantity::class], version = 2, exportSchema = false)
 @TypeConverters(RoomConverters::class)
 abstract class AppDatabase : RoomDatabase() {
 
@@ -14,9 +14,14 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun newInstance(context: Context): AppDatabase {
             return Room.databaseBuilder(context, AppDatabase::class.java, "my-pantry-database")
+                .fallbackToDestructiveMigration()
                 .build()
         }
     }
 
     abstract fun pantryItemDao(): PantryItemDao
+
+    abstract fun quantityDao(): QuantityDao
+
+    abstract fun stockItemDao(): StockItemDao
 }

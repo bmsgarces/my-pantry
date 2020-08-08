@@ -11,9 +11,6 @@ import kotlinx.android.parcel.Parcelize
 data class PantryItem(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "quantity") val quantity: Float,
     @ColumnInfo(name = "category") val category: Category,
-    @ColumnInfo(name = "in_use") val inUse: Boolean,
-    @ColumnInfo(name = "date_of_opening") val dataOfOpening: String? = null,
     @ColumnInfo(name = "expiry_date") val expiryDate: String? = null
 ) : Parcelable

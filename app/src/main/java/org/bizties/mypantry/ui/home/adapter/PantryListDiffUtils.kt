@@ -2,14 +2,15 @@ package org.bizties.mypantry.ui.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import org.bizties.mypantry.repository.PantryItem
+import org.bizties.mypantry.repository.StockItem
 
-class PantryListDiffUtils : DiffUtil.ItemCallback<PantryItem>() {
+class PantryListDiffUtils : DiffUtil.ItemCallback<StockItem>() {
 
-    override fun areItemsTheSame(oldItem: PantryItem, newItem: PantryItem): Boolean {
-        return oldItem.id == newItem.id
+    override fun areItemsTheSame(oldItem: StockItem, newItem: StockItem): Boolean {
+        return oldItem.item.id == newItem.item.id
     }
 
-    override fun areContentsTheSame(oldItem: PantryItem, newItem: PantryItem): Boolean {
+    override fun areContentsTheSame(oldItem: StockItem, newItem: StockItem): Boolean {
         return oldItem == newItem
     }
 }

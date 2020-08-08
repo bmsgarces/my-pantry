@@ -3,4 +3,7 @@
     <string name="title_home">Pantry</string>
     <string name="title_dashboard">Opened</string>
     <string name="title_notifications">Trolley</string>
+
+    <!-- -->
+    <string name="date_of_opening">Opened: %1$s</string>
 </resources>

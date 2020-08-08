@@ -9,4 +9,10 @@ class RoomConverters {
 
     @TypeConverter
     fun stringToCategory(category: String?) = category?.let { Category.valueOf(it) }
+
+    @TypeConverter
+    fun stockTypeToString(stockType: StockType) = stockType.toString()
+
+    @TypeConverter
+    fun stringToStockType(stockType: String?) = stockType?.let { StockType.valueOf(it) }
 }

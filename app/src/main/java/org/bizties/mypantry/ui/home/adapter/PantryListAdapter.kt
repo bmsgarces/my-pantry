@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import org.bizties.mypantry.R
-import org.bizties.mypantry.repository.PantryItem
+import org.bizties.mypantry.repository.StockItem
 
-class PantryListAdapter : ListAdapter<PantryItem, PantryItemViewHolder>(PantryListDiffUtils()) {
+class PantryListAdapter(
+    private val listener: OnPantryItemClickListener
+) : ListAdapter<StockItem, PantryItemViewHolder>(PantryListDiffUtils()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PantryItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -14,6 +16,8 @@ class PantryListAdapter : ListAdapter<PantryItem, PantryItemViewHolder>(PantryLi
     }
 
     override fun onBindViewHolder(holder: PantryItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val item = getItem(position)
+        holder.bind(item)
+        holder.itemView.setOnClickListener { listener.onItemClick(item) }
     }
 }

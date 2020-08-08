@@ -2,7 +2,8 @@ package org.bizties.mypantry
 
 import android.app.Application
 import org.bizties.mypantry.repository.AppDatabase
-import org.bizties.mypantry.repository.PantryItemDao
+import org.bizties.mypantry.repository.RoomTransactionRunner
+import org.bizties.mypantry.repository.StockItemRepository
 
 class MyPantryApplication : Application() {
 
@@ -20,5 +21,10 @@ class MyPantryApplication : Application() {
         instance = this
     }
 
-    fun getPantryItemDao(): PantryItemDao = database.pantryItemDao()
+    fun getStockItemRepository(): StockItemRepository = StockItemRepository(
+        transactionRunner = RoomTransactionRunner(database),
+        pantryItemDao = database.pantryItemDao(),
+        quantityDao = database.quantityDao(),
+        stockItemDao = database.stockItemDao()
+    )
 }

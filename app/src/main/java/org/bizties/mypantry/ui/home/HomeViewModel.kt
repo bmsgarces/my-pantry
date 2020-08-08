@@ -3,14 +3,20 @@ package org.bizties.mypantry.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import org.bizties.mypantry.repository.PantryItem
-import org.bizties.mypantry.repository.PantryItemDao
+import org.bizties.mypantry.repository.StockItem
+import org.bizties.mypantry.repository.StockItemRepository
+import org.bizties.mypantry.shared.nullIfEmpty
 
-class HomeViewModel(pantryItemDao: PantryItemDao) : ViewModel() {
+class HomeViewModel(repo: StockItemRepository) : ViewModel() {
 
-    val pantryItems: LiveData<List<PantryItem>> = pantryItemDao.getAllNotInUse()
+    val stockItems: LiveData<List<StockItem>> = Transformations.map(repo.getAll()) { list ->
+        list.mapNotNull { item ->
+            val quantities = item.quantities.filter { it.type.isInStock() }.nullIfEmpty()
+            quantities?.let { item.copy(quantities = it) }
+        }
+    }
 
-    val showEmptyState: LiveData<Boolean> = Transformations.map(pantryItems) { list ->
+    val showEmptyState: LiveData<Boolean> = Transformations.map(stockItems) { list ->
         list.isEmpty()
     }
 }
