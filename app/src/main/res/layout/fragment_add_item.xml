@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
+            android:inputType="text"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -35,6 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Quantity"
+            android:inputType="numberDecimal"
             android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -44,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:hint="Expiry Date"
         app:layout_constraintStart_toStartOf="@id/quantity_input_layout"
         app:layout_constraintTop_toBottomOf="@id/quantity_input_layout">
 
@@ -51,7 +54,7 @@
             android:id="@+id/expiry_date_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Expiry Date"
+            android:inputType="date"
             android:maxLines="1" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -65,7 +68,6 @@
         android:inputType="none"
         app:layout_constraintStart_toStartOf="@id/expiry_date_input_layout"
         app:layout_constraintTop_toBottomOf="@id/expiry_date_input_layout" />
-
 
     <Button
         android:id="@+id/add_item_button"

@@ -12,10 +12,10 @@ class StockItemRepository(
     private val stockItemDao: StockItemDao
 ) {
 
-    fun addItem(name: String, quantity: Float, category: String, expiryDate: String?) {
+    fun addItem(name: String, quantity: Float, category: Category, expiryDate: String?) {
         transactionRunner.runInTransaction {
             val id = pantryItemDao.insert(
-                PantryItem(name = name, category = Category.valueOf(category), expiryDate = expiryDate)
+                PantryItem(name = name, category = category, expiryDate = expiryDate)
             )
             quantityDao.insert(Quantity(itemId = id.toInt(), type = StockType.IN_STOCK, amount = quantity))
         }
