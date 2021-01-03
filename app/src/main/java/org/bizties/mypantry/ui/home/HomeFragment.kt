@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,7 +17,7 @@ import org.bizties.mypantry.repository.StockItem
 import org.bizties.mypantry.shared.getDrawableCompat
 import org.bizties.mypantry.ui.home.adapter.OnPantryItemClickListener
 import org.bizties.mypantry.ui.home.adapter.PantryListAdapter
-import org.bizties.mypantry.ui.home.updateitem.UpdateItemBottomSheet
+import org.bizties.mypantry.ui.home.updateitem.UpdateItemFragment
 
 class HomeFragment : Fragment(), OnPantryItemClickListener {
 
@@ -41,7 +40,7 @@ class HomeFragment : Fragment(), OnPantryItemClickListener {
         setupRecyclerView(view)
 
         val fab: FloatingActionButton = view.findViewById(R.id.fab)
-        fab.setOnClickListener { navigate() }
+        fab.setOnClickListener { navigateToAdd() }
 
         viewModel.stockItems.observe(viewLifecycleOwner) { listOfItems ->
             listAdapter.submitList(listOfItems)
@@ -67,16 +66,15 @@ class HomeFragment : Fragment(), OnPantryItemClickListener {
         }
     }
 
-    override fun onItemClick(stockItem: StockItem) {
-        showBottomSheet(stockItem)
+    override fun onItemClick(stockItem: StockItem) = navigateToUpdate(stockItem)
+
+    private fun navigateToUpdate(stockItem: StockItem) {
+        val args = Bundle()
+        args.putParcelable(UpdateItemFragment.STOCK_ITEM_BUNDLE_KEY, stockItem)
+        findNavController().navigate(R.id.action_homeFragment_to_updateItemFragment, args)
     }
 
-    private fun showBottomSheet(stockItem: StockItem) {
-        val dialog = UpdateItemBottomSheet.newInstance(stockItem)
-        dialog.show(parentFragmentManager, "update_stock_bottom_sheet")
-    }
-
-    private fun navigate() {
+    private fun navigateToAdd() {
         findNavController().navigate(R.id.action_homeFragment_to_addItemFragment)
     }
 }

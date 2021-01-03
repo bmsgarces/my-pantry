@@ -2,44 +2,38 @@ package org.bizties.mypantry.ui.home.updateitem
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSpinner
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.bizties.mypantry.R
 import org.bizties.mypantry.repository.PantryItem
 import org.bizties.mypantry.repository.StockItem
 
-class UpdateItemBottomSheet : BottomSheetDialogFragment() {
+class UpdateItemFragment : Fragment() {
 
     companion object {
-
-        private const val STOCK_ITEM_BUNDLE_KEY = "stock_item"
-
-        fun newInstance(stockItem: StockItem): UpdateItemBottomSheet {
-            val fragment = UpdateItemBottomSheet()
-            fragment.arguments = Bundle().apply {
-                putParcelable(STOCK_ITEM_BUNDLE_KEY, stockItem)
-            }
-            return fragment
-        }
+        const val STOCK_ITEM_BUNDLE_KEY = "stock_item"
     }
 
     private lateinit var viewModel: UpdateItemViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_update_item, container, false)
-
         viewModel = ViewModelProvider(this,
             UpdateItemViewModelFactory()
         ).get(UpdateItemViewModel::class.java)
+
+        return inflater.inflate(R.layout.fragment_update_item, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
 
         val spinner: AppCompatSpinner = view.findViewById(R.id.spinner)
         val nameTextView: TextView = view.findViewById(R.id.name_text_view)
@@ -62,26 +56,16 @@ class UpdateItemBottomSheet : BottomSheetDialogFragment() {
 
         button.setOnClickListener {
             viewModel.startUsingQuantity(pantryItem.id, spinner.selectedItem as Int)
-            dismiss()
-        }
-
-        return view
-    }
-
-    override fun onStart() {
-        super.onStart()
-        setupBottomSheetBehavior()
-    }
-
-    private fun setupBottomSheetBehavior() {
-        val bottomSheet = dialog?.findViewById(R.id.design_bottom_sheet) as? FrameLayout
-
-        bottomSheet?.let { view ->
-            val behavior = BottomSheetBehavior<FrameLayout>()
-            behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            behavior.skipCollapsed = true
-
-            (view.layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = behavior
+            onBackPressed()
         }
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun onBackPressed() = requireActivity().onBackPressed()
 }

@@ -9,11 +9,15 @@
         android:id="@+id/navigation_home"
         android:name="org.bizties.mypantry.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_homeFragment_to_addItemFragment"
             app:destination="@id/navigation_add_item" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_updateItemFragment"
+            app:destination="@id/navigation_update_item" />
     </fragment>
 
     <fragment
@@ -21,6 +25,12 @@
         android:name="org.bizties.mypantry.ui.home.additem.AddItemFragment"
         android:label="Add Item"
         tools:layout="@layout/fragment_add_item" />
+
+    <fragment
+        android:id="@+id/navigation_update_item"
+        android:name="org.bizties.mypantry.ui.home.updateitem.UpdateItemFragment"
+        android:label="Update Item"
+        tools:layout="@layout/fragment_update_item" />
 
     <fragment
         android:id="@+id/navigation_dashboard"

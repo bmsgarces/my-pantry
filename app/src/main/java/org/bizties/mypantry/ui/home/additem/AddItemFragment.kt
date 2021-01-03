@@ -49,7 +49,7 @@ class AddItemFragment : Fragment() {
                 categoryDescription = categoryEditText.textToString(),
                 expiryDate = expiryDateEditText.textToString().nullIfEmpty()
             )
-            requireActivity().onBackPressed()
+            onBackPressed()
         }
 
         parentFragmentManager.setFragmentResultListener(
@@ -63,10 +63,12 @@ class AddItemFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> requireActivity().onBackPressed()
+            android.R.id.home -> onBackPressed()
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun onBackPressed() = requireActivity().onBackPressed()
 
     private fun showSelectCategoryBottomSheet() {
         SelectCategoryBottomSheet().show(parentFragmentManager, "select_category_bottom_sheet")
